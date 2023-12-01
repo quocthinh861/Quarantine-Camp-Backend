@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/patient")
@@ -24,6 +25,21 @@ public class PatientController {
         try {
             var response = new SuccessResponseDto();
             response.result = patientService.getAllPatients();
+            return new ResponseEntity<>(response, status);
+        } catch (Exception err) {
+            status = HttpStatus.BAD_REQUEST;
+            var response = new ErrorResponseDto();
+            response.errors = err;
+            return new ResponseEntity<>(response, status);
+        }
+    }
+
+    @GetMapping("/getPatientById/{id}")
+    public ResponseEntity<Object> getPatientById(@PathVariable UUID id) {
+        var status = HttpStatus.OK;
+        try {
+            var response = new SuccessResponseDto();
+            response.result = patientService.getPatientById(id);
             return new ResponseEntity<>(response, status);
         } catch (Exception err) {
             status = HttpStatus.BAD_REQUEST;

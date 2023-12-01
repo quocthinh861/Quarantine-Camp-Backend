@@ -1,6 +1,7 @@
 package com.assignment.hospital.dtos;
 
 import com.assignment.hospital.entites.PatientEntity;
+import com.assignment.hospital.models.TreatmentDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -18,6 +19,9 @@ public class PatientDto {
     private String previousLocation;
     private String condition;
     private List<PatientComorbidityDto> comorbidities;
+    private List<SymptomDto> symptoms;
+    private List<TreatmentDto> treatments;
+
     // Constructors, getters, and setters
 
     public PatientDto() {
@@ -113,6 +117,22 @@ public class PatientDto {
         this.comorbidities = comorbidities;
     }
 
+    public List<SymptomDto> getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(List<SymptomDto> symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public List<TreatmentDto> getTreatments() {
+        return treatments;
+    }
+
+    public void setTreatments(List<TreatmentDto> treatmentDtos) {
+        this.treatments = treatmentDtos;
+    }
+
     public void loadFromEntity(PatientEntity entity) {
         this.patientId = entity.getPatientId();
         this.address = entity.getAddress();
@@ -124,6 +144,7 @@ public class PatientDto {
         this.previousLocation = entity.getPreviousLocation();
         this.gender = entity.getGender();
         this.comorbidities = PatientComorbidityDto.fromEntities(entity.getComorbidities());
+        this.symptoms = SymptomDto.fromEntities(entity.getSymptoms());
     }
 
     public static PatientDto fromEntity(PatientEntity entity) {

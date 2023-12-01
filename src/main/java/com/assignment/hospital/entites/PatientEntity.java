@@ -46,6 +46,16 @@ public class PatientEntity {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PatientComorbidityEntity> comorbidities;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "patientsymptom",
+            joinColumns = {@JoinColumn(name = "patient_id", referencedColumnName = "patient_id")},
+            inverseJoinColumns = {@JoinColumn(name = "symptom_name", referencedColumnName = "symptom_name")})
+    private List<SymptomEntity> symptoms;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TreatmentEntity> treatments;
+
+
     // You may also override toString() for debugging purposes
 
     @Override
