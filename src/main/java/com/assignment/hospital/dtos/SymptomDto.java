@@ -24,6 +24,10 @@ public class SymptomDto {
 
     public static List<SymptomDto> fromEntities(List<SymptomEntity> symptoms)
     {
+        if(symptoms == null || symptoms.isEmpty())
+        {
+            return null;
+        }
         return symptoms.stream().map(SymptomDto::fromEntity).collect(Collectors.toList());
     }
 }

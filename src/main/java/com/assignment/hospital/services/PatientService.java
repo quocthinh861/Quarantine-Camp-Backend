@@ -100,7 +100,7 @@ public class PatientService {
 
         PatientDto patientDto = PatientDto.fromEntity(patient);
 
-        if(symptomDtos.size() > 0)
+        if(symptomDtos != null && symptomDtos.size() > 0)
         {
             // Sort symptomDtos by recordTime
             symptomDtos.sort((symptomDto1, symptomDto2) -> symptomDto2.recordTime.compareTo(symptomDto1.recordTime));
