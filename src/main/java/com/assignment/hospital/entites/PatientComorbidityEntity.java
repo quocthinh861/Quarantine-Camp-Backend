@@ -1,5 +1,6 @@
 package com.assignment.hospital.entites;
 
+import com.assignment.hospital.dtos.PatientComorbidityDto;
 import com.assignment.hospital.models.PatientComorbidityId;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -50,10 +51,11 @@ public class PatientComorbidityEntity {
     }
 
     @JsonIgnore
-    public static List<PatientComorbidityEntity> fromDtos(List<PatientComorbidityEntity> patientComorbidityEntities) {
-        for (PatientComorbidityEntity patientComorbidityEntity : patientComorbidityEntities) {
-            patientComorbidityEntity.loadFromDto(patientComorbidityEntity.getPatient(), patientComorbidityEntity.getComorbidityName());
+    public static List<PatientComorbidityEntity> fromDtos(PatientEntity patient, List<PatientComorbidityDto> comorbidities) {
+        if(comorbidities == null
+                || comorbidities.isEmpty()) {
+            return null;
         }
-        return patientComorbidityEntities;
+        return comorbidities.stream().map(comorbidity -> PatientComorbidityEntity.fromDto(patient, comorbidity.comorbidity)).collect(java.util.stream.Collectors.toList());
     }
 }

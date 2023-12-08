@@ -84,7 +84,8 @@ public class PatientEntity {
         this.setCondition(patientDto.getCondition());
 
         if(patientDto.getComorbidities() != null) {
-            this.setComorbidities(PatientComorbidityEntity.fromDtos(this.getComorbidities()));
+            List<PatientComorbidityEntity> comorbidityEntities = PatientComorbidityEntity.fromDtos(this, patientDto.getComorbidities());
+            this.setComorbidities(comorbidityEntities);
         }
 
     }
