@@ -33,7 +33,7 @@ public class PatientService {
     private MedicationRepository medicationRepository;
 
     public List<PatientDto> getAllPatients() {
-        List<PatientEntity> patients = patientRepository.findAll();
+        List<PatientEntity> patients = patientRepository.findAllByWithSize(10);
         return PatientDto.fromEntities(patients);
     }
 
