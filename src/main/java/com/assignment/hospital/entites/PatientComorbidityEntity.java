@@ -1,10 +1,12 @@
 package com.assignment.hospital.entites;
 
 import com.assignment.hospital.models.PatientComorbidityId;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -30,5 +32,28 @@ public class PatientComorbidityEntity {
                 "patient=" + patient +
                 ", comorbidityName='" + comorbidityName + '\'' +
                 '}';
+    }
+
+    void loadFromDto(PatientEntity patient, String comorbidityName) {
+        this.patient = patient;
+        this.comorbidityName = comorbidityName;
+    }
+
+    public PatientComorbidityEntity() {
+    }
+
+    @JsonIgnore
+    public static PatientComorbidityEntity fromDto(PatientEntity patient, String comorbidityName) {
+        PatientComorbidityEntity patientComorbidityEntity = new PatientComorbidityEntity();
+        patientComorbidityEntity.loadFromDto(patient, comorbidityName);
+        return patientComorbidityEntity;
+    }
+
+    @JsonIgnore
+    public static List<PatientComorbidityEntity> fromDtos(List<PatientComorbidityEntity> patientComorbidityEntities) {
+        for (PatientComorbidityEntity patientComorbidityEntity : patientComorbidityEntities) {
+            patientComorbidityEntity.loadFromDto(patientComorbidityEntity.getPatient(), patientComorbidityEntity.getComorbidityName());
+        }
+        return patientComorbidityEntities;
     }
 }

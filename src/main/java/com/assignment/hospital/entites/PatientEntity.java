@@ -82,5 +82,10 @@ public class PatientEntity {
         this.setPhoneNumber(patientDto.getPhoneNumber());
         this.setPreviousLocation(patientDto.getPreviousLocation());
         this.setCondition(patientDto.getCondition());
+
+        if(patientDto.getComorbidities() != null) {
+            this.setComorbidities(PatientComorbidityEntity.fromDtos(this.getComorbidities()));
+        }
+
     }
 }
